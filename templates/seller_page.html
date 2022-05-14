@@ -15,6 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/near-api-js@0.41.0/dist/near-api-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/nearprotocol/near-api-js/dist/near-api-js.js"></script>
     <script>
         function redirect() {
             window.open('{{youtube}}', '_blank');
@@ -102,10 +104,10 @@
 </body>
 
 <script>
-
+	const solanaWeb3 = require('@solana/web3.js');
     const receiver = "{{ walletaddr }}";
-    let sender="";
-    console.log("receiver: ",receiver);
+    var sender;
+    console.log(receiver);
     const lamports_per_sol = solanaWeb3.LAMPORTS_PER_SOL;
 
     function connectWallet() {
@@ -113,9 +115,9 @@
             try {
                 const resp = await window.solana.connect();
                 wallet = resp;
-                walletaddress = window.solana.publicKey.toString();
+                walletaddress = window.solana.publicKey;
                 sender = walletaddress;
-                console.log("sender: ",sender);
+                console.log(sender);
             } catch (err) {
                 // { code: 4001, message: 'User rejected the request.' }
             }
@@ -135,32 +137,34 @@
             const connection = new solanaWeb3.Connection(network);
             const transaction = new solanaWeb3.Transaction();
 
-            la = document.getElementById("amount").value * 0.05 * 1000000000;
+            la = document.getElementById("amount").value * 0.05 * 100000000;
+
 
             try {
                 console.log("starting sendMoney");
                 const destPubkey = new solanaWeb3.PublicKey(receiver);
                 const sendPubkey = new solanaWeb3.PublicKey(sender);
 
-                console.log("rec:", destPubkey);
-                console.log("sen:", sendPubkey);
-
-                const senderAccountInfo = await connection.getAccountInfo(sendPubkey);
-                console.log("sender data size", senderAccountInfo?.data.length);
+                const walletAccountInfo = await connection.getAccountInfo(
+                    wallet.publicKey
+                );
+                console.log("wallet data size", walletAccountInfo?.data.length);
 
                 const receiverAccountInfo = await connection.getAccountInfo(destPubkey);
                 console.log("receiver data size", receiverAccountInfo?.data.length);
 
                 const instruction = solanaWeb3.SystemProgram.transfer({
-                    fromPubkey: sendPubkey,
+                    fromPubkey: wallet.publicKey,
                     toPubkey: destPubkey,
-                    lamports: la,
+                    lamports: la, // about half a SOL
                 });
 
                 let trans = await setWalletTransaction(instruction, connection);
                 let signature = await signAndSendTransaction(wallet, trans, connection);
                 let result = await connection.confirmTransaction(signature, "Confirm");
 
+                let signature = await signAndSendTransaction(wallet, trans, connection);
+                let result = await connection.confirmTransaction(signature, "TestMEEEEEE");
                 console.log("money sent", result);
                 window.alert('Thank You!')
 

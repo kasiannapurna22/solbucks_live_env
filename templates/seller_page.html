@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolBucks</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="icon" type="image/x-icon"
+        href="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/30/000000/external-cup-fast-food-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script>
+        function redirect() {
+            window.open('{{youtube}}', '_blank');
+        }
+    </script>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i><img
+                        src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/30/000000/external-cup-fast-food-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png" /></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item li-color">
+                        <a class="nav-link" href="#">User Profile </i></a>
+                    </li>
+                </ul>
+                <div>
+                </div>
+    </nav>
+    <hr>
+    <div class="container">
+    <center>
+        <img src="https://raw.githubusercontent.com/solbucks/Solana-Riptide/main/static/images/avatar.png" alt="Boss" style="width:15%" class="w3-circle w3-hover-opacity">
+    </center>
+    <div class="w3-opacity">
+        <span class="w3-button w3-xxlarge w3-white w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+        <div class="w3-clear"></div>
+
+        <header class="w3-center w3-margin-bottom">
+            <h2><b>{{username}}</b></h2>
+            <p style="font-size:18px;"><b>{{about}}</b></p>
+            <p class="w3-padding-16"><button class="w3-button w3-black" onclick="redirect()">Social Handle</button></p>
+        </header>
+    </div>
+
+
+        <h3 style="padding-bottom:0px"><b></h3>
+        </p>
+        <br>
+        <div class="card" align="center">
+            <br>
+            <header class="w3-center w3-margin-bottom">
+                <h3><b>Support Me!</b></h3>
+            </header>
+            <center>
+            <img src="https://raw.githubusercontent.com/solbucks/Solana-Riptide/main/static/images/solana-coffee.png" alt="Coffee" style="padding-top:0px;width:15%">
+            </center>
+        <div class="desc">
+            <input type="number" id="amount" placeholder=" 1 coffee = 0.05 SOL"></input>
+            <br><br><br>
+            <button class="primary-text w3-btn btn-warning" style="width:215px" id="buy_coffee"
+                onClick="connectWallet()">Connect with Phantom 👻</button>
+            <br><br><br>
+        </div>
+        </div>
+
+    <br><br>
+    <hr>
+
+    <div id="thank_you" style="display: none;">
+        <p>Thanks for filling up the form!</p>
+        <button type="submit">Close</button>
+      </div>
+    </div>
+
+    <footer>
+        <center>
+            <p>SolBucks</p>
+        </center>
+        <center>
+            <p class=" footer__texto" style="font-weight: 400; font-size:12px">Copyright @ 2022</p>
+        </center>
+    </footer>
+
+
+</body>
+
+<script>
+
+    const receiver = "{{ walletaddr }}";
+    let sender="";
+    console.log("receiver: ",receiver);
+    const lamports_per_sol = solanaWeb3.LAMPORTS_PER_SOL;
+
+    function connectWallet() {
+        (async () => {
+            try {
+                const resp = await window.solana.connect();
+                wallet = resp;
+                walletaddress = window.solana.publicKey.toString();
+                sender = walletaddress;
+                console.log("sender: ",sender);
+            } catch (err) {
+                // { code: 4001, message: 'User rejected the request.' }
+            }
+        })();
+
+        window.solana.on("connect", () => {
+            document.getElementById("buy_coffee").innerText = "Buy Me a Coffee";
+            document.getElementById("buy_coffee").setAttribute("onClick", "javascript: signInTransactionAndSendMoney();");
+        })
+    }
+
+    function signInTransactionAndSendMoney() {
+
+        (async () => {
+
+            const network = "https://api.devnet.solana.com";
+            const connection = new solanaWeb3.Connection(network);
+            const transaction = new solanaWeb3.Transaction();
+
+            la = document.getElementById("amount").value * 0.05 * 1000000000;
+
+            try {
+                console.log("starting sendMoney");
+                const destPubkey = new solanaWeb3.PublicKey(receiver);
+                const sendPubkey = new solanaWeb3.PublicKey(sender);
+
+                console.log("rec:", destPubkey);
+                console.log("sen:", sendPubkey);
+
+                const senderAccountInfo = await connection.getAccountInfo(sendPubkey);
+                console.log("sender data size", senderAccountInfo?.data.length);
+
+                const receiverAccountInfo = await connection.getAccountInfo(destPubkey);
+                console.log("receiver data size", receiverAccountInfo?.data.length);
+
+                const instruction = solanaWeb3.SystemProgram.transfer({
+                    fromPubkey: sendPubkey,
+                    toPubkey: destPubkey,
+                    lamports: la,
+                });
+
+                let trans = await setWalletTransaction(instruction, connection);
+                let signature = await signAndSendTransaction(wallet, trans, connection);
+                let result = await connection.confirmTransaction(signature, "Confirm");
+
+                console.log("money sent", result);
+                window.alert('Thank You!')
+
+                var nextStep = document.querySelector('#nextStep');
+                nextStep.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Hide first view
+                    document.getElementById('my_form').style.display = 'none';
+                    // Show thank you message element
+                    document.getElementById('thank_you').style.display = 'block';
+                });
+
+            } catch (e) {
+                console.warn("Failed", e);
+            }
+        })()
+
+        async function setWalletTransaction(
+            instruction, connection
+        ) {
+            const transaction = new solanaWeb3.Transaction();
+            transaction.add(instruction);
+            transaction.feePayer = wallet.publicKey;
+            let hash = await connection.getRecentBlockhash();
+            console.log("blockhash", hash);
+            transaction.recentBlockhash = hash.blockhash;
+            return transaction;
+        }
+
+        async function signAndSendTransaction(
+            wallet,
+            transaction,
+            connection
+        ) {
+            // Sign transaction, broadcast, and confirm
+            const { signature } = await window.solana.signAndSendTransaction(transaction);
+            await connection.confirmTransaction(signature);
+
+            //let signedTrans = await wallet.signTransaction(transaction);
+            console.log("sign transaction");
+            //let signature = await connection.sendRawTransaction(signedTrans.serialize());
+            console.log("send raw transaction");
+            return signature;
+        }
+
+    }
+</script>
+
+</html>

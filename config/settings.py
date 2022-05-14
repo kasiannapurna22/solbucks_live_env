@@ -28,7 +28,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['solbucks.pythonanywhere.com','https://solbucks.pythonanywhere.com/','www.solbucks.app','solbucks.app','https://solbucks.app']
 
-#ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -120,13 +120,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 
+STATIC_URL = '/static/'
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
 MEDIA_URL = '/images/'
 
-if DEBUG:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
-    ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')

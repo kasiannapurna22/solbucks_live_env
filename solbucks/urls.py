@@ -7,7 +7,7 @@ from django.conf import settings
 urlpatterns = [
     path('', Home,name='home'),
     path('create/',CreateOrValidateUser,name='validate'),
-    path('<str:username>/',UserPage,name='userpage'),
+    path('in/<str:username>/',UserPage,name='userpage'),
     path('check_username/', check_username, name='check_username'),
 ]
 

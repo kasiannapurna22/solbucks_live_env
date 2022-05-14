@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SolBucks</title>
+    <title>BuyMeKofi</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="icon" type="image/x-icon"
         href="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/30/000000/external-cup-fast-food-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png">
@@ -23,7 +23,6 @@
         }
     </script>
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -46,51 +45,41 @@
                 </div>
     </nav>
     <hr>
-    <div class="container">
+
     <center>
-        <img src="https://raw.githubusercontent.com/solbucks/Solana-Riptide/main/static/images/avatar.png" alt="Boss" style="width:15%" class="w3-circle w3-hover-opacity">
+        <img src="{% static 'images/avatar.png' %}" alt="Boss" style="width:15%" class="w3-circle w3-hover-opacity">
     </center>
     <div class="w3-opacity">
         <span class="w3-button w3-xxlarge w3-white w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></span>
         <div class="w3-clear"></div>
 
         <header class="w3-center w3-margin-bottom">
-            <h2><b>{{username}}</b></h2>
-            <p style="font-size:18px;"><b>{{about}}</b></p>
+            <h1><b>{{username}}</b></h1>
+            <p><b>{{about}}</b></p>
             <p class="w3-padding-16"><button class="w3-button w3-black" onclick="redirect()">Social Handle</button></p>
         </header>
     </div>
-
-
+    <hr>
+    <center>
         <h3 style="padding-bottom:0px"><b></h3>
         </p>
         <br>
-        <div class="card" align="center">
-            <br>
+        <center>
             <header class="w3-center w3-margin-bottom">
                 <h3><b>Support Me!</b></h3>
             </header>
-            <center>
-            <img src="https://raw.githubusercontent.com/solbucks/Solana-Riptide/main/static/images/solana-coffee.png" alt="Coffee" style="padding-top:0px;width:15%">
-            </center>
+            <img src="{% static 'images/solana-coffee.png' %}" alt="Coffee" style="padding-top:0px;width:15%">
+        </center>
         <div class="desc">
             <input type="number" id="amount" placeholder=" 1 coffee = 0.05 SOL"></input>
             <br><br><br>
             <button class="primary-text w3-btn btn-warning" style="width:215px" id="buy_coffee"
-                onClick="connectWallet()">Connect with Phantom 👻</button>
-            <br><br><br>
+                onClick="connectWallet()">Connect with Phantom
+                👻</button>
         </div>
-        </div>
-
+    </center>
     <br><br>
     <hr>
-
-    <div id="thank_you" style="display: none;">
-        <p>Thanks for filling up the form!</p>
-        <button type="submit">Close</button>
-      </div>
-    </div>
-
     <footer>
         <center>
             <p>SolBucks</p>
@@ -104,7 +93,7 @@
 </body>
 
 <script>
-	const solanaWeb3 = require('@solana/web3.js');
+
     const receiver = "{{ walletaddr }}";
     var sender;
     console.log(receiver);
@@ -122,13 +111,14 @@
                 // { code: 4001, message: 'User rejected the request.' }
             }
         })();
-
         window.solana.on("connect", () => {
             document.getElementById("buy_coffee").innerText = "Buy Me a Coffee";
             document.getElementById("buy_coffee").setAttribute("onClick", "javascript: signInTransactionAndSendMoney();");
-        })
-    }
 
+
+        })
+
+    }
     function signInTransactionAndSendMoney() {
 
         (async () => {
@@ -143,7 +133,6 @@
             try {
                 console.log("starting sendMoney");
                 const destPubkey = new solanaWeb3.PublicKey(receiver);
-                const sendPubkey = new solanaWeb3.PublicKey(sender);
 
                 const walletAccountInfo = await connection.getAccountInfo(
                     wallet.publicKey
@@ -158,28 +147,17 @@
                     toPubkey: destPubkey,
                     lamports: la, // about half a SOL
                 });
-
                 let trans = await setWalletTransaction(instruction, connection);
-                let signature = await signAndSendTransaction(wallet, trans, connection);
-                let result = await connection.confirmTransaction(signature, "Confirm");
 
                 let signature = await signAndSendTransaction(wallet, trans, connection);
                 let result = await connection.confirmTransaction(signature, "TestMEEEEEE");
                 console.log("money sent", result);
-                window.alert('Thank You!')
-
-                var nextStep = document.querySelector('#nextStep');
-                nextStep.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    // Hide first view
-                    document.getElementById('my_form').style.display = 'none';
-                    // Show thank you message element
-                    document.getElementById('thank_you').style.display = 'block';
-                });
-
+                alert('Money sent');
             } catch (e) {
                 console.warn("Failed", e);
             }
+
+
         })()
 
         async function setWalletTransaction(
@@ -203,6 +181,7 @@
             const { signature } = await window.solana.signAndSendTransaction(transaction);
             await connection.confirmTransaction(signature);
 
+
             //let signedTrans = await wallet.signTransaction(transaction);
             console.log("sign transaction");
             //let signature = await connection.sendRawTransaction(signedTrans.serialize());
@@ -211,6 +190,8 @@
         }
 
     }
+
+
 </script>
 
 </html>

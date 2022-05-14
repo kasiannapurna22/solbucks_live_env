@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'z9v*m=a!ido#wy(!3xl@*ye#-+r1&c3*nkuyf1kptt4=cq=7%)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['solbucks.pythonanywhere.com','https://solbucks.pythonanywhere.com/','www.solbucks.app','solbucks.app','https://solbucks.app']
 
-
+#ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -124,5 +124,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = '/images/'
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')

@@ -18,10 +18,7 @@ def CreateOrValidateUser(request):
         except:
             temp=False
         if temp:
-            data = {
-            'username': User.objects.filter(username=temp).count()
-            }
-            return JsonResponse(data)
+            return redirect('userpage',temp)
         else:
             print('update userdetails')
             t_username = request.POST.get('username-id')

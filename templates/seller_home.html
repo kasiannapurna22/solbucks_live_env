@@ -7,8 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="icon" type="image/x-icon"
-    href="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/30/000000/external-cup-fast-food-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png">
+  <link rel="icon" type="image/x-icon" src={% static 'images/logo_changes.png' %}>
 
   <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@1,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
@@ -118,8 +117,8 @@
           </li>
         </ul>
         <div>
-          <a style="border-radius: 50px" class="btn btn-warning" id="wallet-changeMe"
-            onClick="connectWallet()"> <strong style="color:black; font-weight: 600;">Login With Phantom 👻</strong> </a>
+          <a style="border-radius: 50px" class="btn btn-warning" id="wallet-changeMe" onClick="connectWallet()"> <strong
+              style="color:black; font-weight: 600;">Login With Phantom 👻</strong> </a>
         </div>
       </div>
     </div>
@@ -131,7 +130,9 @@
   <hr>
 
   <div class="container">
-    <img class="img-fluid" style="border-radius:15px" src="https://image.cnbcfm.com/api/v1/image/106938067-1631027368110-gettyimages-1234805892-porzycki-solanaph210821_npOA2.jpeg?v=1636144535" alt="...">
+    <img class="img-fluid" style="border-radius:15px"
+      src="https://image.cnbcfm.com/api/v1/image/106938067-1631027368110-gettyimages-1234805892-porzycki-solanaph210821_npOA2.jpeg?v=1636144535"
+      alt="...">
   </div>
   </div>
 
@@ -153,7 +154,7 @@
 
     </section>
 -->
-<br>
+  <br>
   <section>
 
     <div class="donation-margin">
@@ -260,7 +261,8 @@
                 </div>
                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                  <img src="https://images.ctfassets.net/0idwgenf7ije/6Bl0i0txsQHTCO853l3CCQ/9e8ca02d80237d7687af90f9a520a7ec/Gemini-Solana__SOL_-_Scaling_Crypto_to_the_Masses.png?fm=webp"
+                  <img
+                    src="https://images.ctfassets.net/0idwgenf7ije/6Bl0i0txsQHTCO853l3CCQ/9e8ca02d80237d7687af90f9a520a7ec/Gemini-Solana__SOL_-_Scaling_Crypto_to_the_Masses.png?fm=webp"
                     class="img-fluid" alt="Sample image">
 
                 </div>
@@ -302,7 +304,7 @@
         walletaddress = window.solana.publicKey.toString();
         console.log(walletaddress);
         document.getElementById('wallet-address').value = walletaddress;
-        document.getElementById('wallet-changeMe').innerText = '👛 '+ walletaddress.slice(0, 8) + '.....';
+        document.getElementById('wallet-changeMe').innerText = '👛 ' + walletaddress.slice(0, 8) + '.....';
 
       } catch (err) {
         // { code: 4001, message: 'User rejected the request.' }

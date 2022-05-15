@@ -25,117 +25,70 @@
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
 </head>
 
-<style>
-    .user_name{
-        display: flex;
-        justify-content: center;
+<body>
 
-    }
-    .user_profile{
-      font-family: 'Archivo', sans-serif;
-      font-family: 'Prompt', sans-serif;
-      font-family: 'Space Mono', monospace;
-      font-family: 'Titillium Web', sans-serif;
-      font-family: 'Ubuntu', sans-serif;
-      padding: 5px;
-      justify-content: center;
-    }
-
-    .user_img{
-        display: flex;
-        justify-content: center;
-    }
-    .social_handle{
-        border-radius: 10px;
-        background-color: blueviolet;
-        padding: 8px;
-        border-color: none;
-        color: #fff;
-
-
-    }
-    .supportme{
-        padding: 3%;
-        display: flex;
-        justify-content: center;
-    }
-    .card{
-        display: flex;
-        width: 40%;
-        height: 17rem;
-       border-radius: 15px;
-       justify-content: center;
-
-    }
-    .coffeeimg{
-        align-items: center;
-    }
-.down_footer{
-    background-color:#712891 ;
-    padding: 10px;
-}
-.footer__text {
-		color: #fff;
-        font-size: 15px;
-        align-items: center;
-	}
-
-</style>
-<header>
     <nav class="navbar navbar-expand-md navbar-light bg-white">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"><i><img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/30/000000/external-cup-fast-food-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png"/></i></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span> </button>
+            <a class="navbar-brand" href="#"><i><img src={% static 'images/logo_changes.png' %} /></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item li-color">
-                      <a class="nav-link" href="#">User Profile </i></a>
+                        <a class="nav-link" href="#">User Profile </i></a>
                     </li>
                 </ul>
-            <div>
-        </div>
+                <div>
+                </div>
     </nav>
-</header>
-<hr>
+    <hr>
 
-<body>
-    <section class="user_name">
-        <div>
-            <div class="user_img">
-                <img src="{% static 'images/avatar.png' %}" alt="Boss" style="width:15%" class="w3-circle w3-hover-opacity">
-            </div>
-            <div class="w3-opacity">
-                <span class="w3-button w3-xxlarge w3-white w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></span>
-                <br/>
-                <div class="w3-center w3-margin-bottom">
-                    <h1 class="user_profile"><b>{{username}}</b></h1>
-                    <p class="user_profile"><b>{{about}}</b></p>
-                    <p class=" user_profile"><button class="social_handle " onclick="redirect()">Social Handle</button></p>
-                </div>
-            </div>
-        </div>
-    </section>
-        <section class="w3-center w3-margin-bottom supportme" style="background-color: #c665f0;">
-                <div class="card" >
-                    <div>
-                        <h3><b>Support Me!</b></h3>
-                    </div>
-                    <div>
-                        <img src="{% static 'images/solana-coffee.png' %}" alt="Coffee" style="padding-top:0px;width:15%" class="coffeeimg">
-                    </div>
-                    <div class="desc">
-                        <input type="number" id="amount" placeholder=" 1 coffee = 0.05 SOL" class="support_coffee"></input>
-                        <br><br><br>
-                        <button class="primary-text w3-btn btn-warning" style="width:215px" id="buy_coffee">Connect with Phantom 👻</button>
-                    </div>
+    <center>
+        <img src="{% static 'images/avatar.png' %}" alt="Boss" style="width:15%" class="w3-circle w3-hover-opacity">
+    </center>
+    <div class="w3-opacity">
+        <span class="w3-button w3-xxlarge w3-white w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+        <div class="w3-clear"></div>
 
-                </div>
-        </section>
+        <header class="w3-center w3-margin-bottom">
+            <h1><b>{{username}}</b></h1>
+            <p><b>{{about}}</b></p>
+            <p class="w3-padding-16"><button class="w3-button w3-black" onclick="redirect()">Social Handle</button></p>
+        </header>
     </div>
-    <footer class="down_footer">
-        <center> <p class="footer__text">React us at <br/> support@solbucks.com</p></center>
+    <hr>
+    <center>
+        <h3 style="padding-bottom:0px"><b></h3>
+        </p>
+        <br>
+        <center>
+            <header class="w3-center w3-margin-bottom">
+                <h3><b>Support Me!</b></h3>
+            </header>
+            <img src="{% static 'images/solana-coffee.png' %}" alt="Coffee" style="padding-top:0px;width:15%">
+        </center>
+        <div class="desc">
+            <input type="number" id="amount" placeholder=" 1 coffee = 0.05 SOL"></input>
+            <br><br><br>
+            <button class="primary-text w3-btn btn-warning" style="width:215px" id="buy_coffee"
+                onClick="connectWallet()">Connect with Phantom
+                👻</button>
+        </div>
+    </center>
+    <br><br>
+    <hr>
+    <footer>
+        <center>
+            <p>SolBucks</p>
+        </center>
+        <center>
+            <p class=" footer__texto" style="font-weight: 400; font-size:12px">Copyright @ 2022</p>
+        </center>
     </footer>
+
+
 </body>
 
 <script>

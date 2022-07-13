@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'solbucks'
+    'solbucks',
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [

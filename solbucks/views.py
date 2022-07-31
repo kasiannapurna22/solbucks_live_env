@@ -52,7 +52,7 @@ def UserPage(request,username):
         'username':username,
         'walletaddr':temp.walletid,
         'about':temp.about,
-        'youtube':temp.youtube,
+        'socialhandle':temp.youtube,
 
     }
     return render(request,'seller_page.html',context)

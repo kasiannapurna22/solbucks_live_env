@@ -25,6 +25,8 @@ SECRET_KEY = 'z9v*m=a!ido#wy(!3xl@*ye#-+r1&c3*nkuyf1kptt4=cq=7%)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+#dev env
+# DEBUG = True
 
 ALLOWED_HOSTS = ['solbucks.pythonanywhere.com','https://solbucks.pythonanywhere.com/','www.solbucks.app','solbucks.app','https://solbucks.app']
 
@@ -38,9 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'solbucks',
-    'rest_framework',
-    'api'
+    'solbucks'
 ]
 
 MIDDLEWARE = [
